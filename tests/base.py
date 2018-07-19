@@ -6,13 +6,17 @@ class TestBase:
 
     def train(self):
         """
-        Yields (tools, get_reward_func: get_reward, epoch, max_epoch)
+        Yields (data, epoch, max_epoch)
+        data: The image or data points of the testing scenario, of type np.array
         """
+        raise NotImplemented
+
+    def get_data(self):
         raise NotImplemented
 
     def get_reward(self, action):
         """
-        Returns (reward, is_terminal)
+        Returns (data, reward, is_terminal)
 
         TODO: Might put in `train`
         """

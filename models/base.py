@@ -1,7 +1,15 @@
 class ModelBase:
     actions = None
 
-    def get_action(self, is_training, data, epoch=None, max_epoch=None):
+    def set_actions(self, actions: iter):
+        """
+        Available actions for the current scenario
+
+        :param actions:
+        """
+        self.actions = actions
+
+    def get_action(self, is_training: bool, data, epoch=None, max_epoch=None):
         """
         Gives back an action with assistance of the given tools
 
@@ -13,19 +21,13 @@ class ModelBase:
         """
         raise NotImplemented
 
-    def give_reward(self, reward, is_terminal):
+    def receive_reward(self, is_training: bool, data, reward: float, is_terminal: bool):
         """
         After the action is received, the model will be given a reward based off of its action
 
+        :param is_training: True when the system should be learning
+        :param data: Data of the state after learning (None if test is not sequential)
         :param reward: Reward for its action
         :param is_terminal: If the current simulation is finished (can only be false for tests with continuous simulations)
         """
-        raise NotImplemented
-
-    def set_actions(self, actions: iter):
-        """
-        Available actions for the current scenario
-
-        :param actions:
-        """
-        self.actions = actions
+        pass

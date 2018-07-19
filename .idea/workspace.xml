@@ -3,9 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="e340fb4f-3897-4875-9ec3-8332c7c460e9" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/tools/analysis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/save_file.py" beforeDir="false" afterPath="$PROJECT_DIR$/tools/save_file.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Classes.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/base.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runner/runner.py" beforeDir="false" afterPath="$PROJECT_DIR$/runner/runner.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/base.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -20,14 +22,30 @@
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="base.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/models/base.py">
-              <provider selected="true" editor-type-id="text-editor" />
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="420">
+                  <caret line="28" column="86" selection-start-line="28" selection-start-column="86" selection-end-line="28" selection-end-column="86" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/models/models.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="490">
+                  <caret line="146" lean-forward="true" selection-start-line="146" selection-end-line="146" />
+                  <folding>
+                    <element signature="e#0#9#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
             </entry>
           </file>
           <file leaf-file-name="runner.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/runner/runner.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="480">
-                  <caret line="33" column="45" selection-start-line="33" selection-start-column="45" selection-end-line="33" selection-end-column="45" />
+                <state relative-caret-position="555">
+                  <caret line="37" column="52" selection-start-line="37" selection-start-column="52" selection-end-line="37" selection-end-column="52" />
                   <folding>
                     <element signature="e#0#33#0" expanded="true" />
                   </folding>
@@ -38,32 +56,8 @@
           <file leaf-file-name="base.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/tests/base.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="90">
-                  <caret line="6" column="18" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="18" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/models/models.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="210">
-                  <caret line="52" column="23" selection-start-line="52" selection-start-column="23" selection-end-line="52" selection-end-column="23" />
-                  <folding>
-                    <element signature="e#0#9#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="analysis.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/tools/analysis.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="258">
-                  <caret line="59" selection-start-line="59" selection-end-line="59" />
-                  <folding>
-                    <element signature="e#0#11#0" expanded="true" />
-                  </folding>
+                <state>
+                  <caret lean-forward="true" />
                 </state>
               </provider>
             </entry>
@@ -87,8 +81,8 @@
           <file leaf-file-name="save_file.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/tools/save_file.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="375">
-                  <caret line="25" column="12" selection-start-line="25" selection-start-column="12" selection-end-line="25" selection-end-column="12" />
+                <state relative-caret-position="120">
+                  <caret line="8" column="8" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
                 </state>
               </provider>
             </entry>
@@ -96,21 +90,10 @@
           <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/main.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="375">
-                  <caret line="25" column="70" selection-start-line="25" selection-start-column="70" selection-end-line="25" selection-end-column="70" />
+                <state relative-caret-position="60">
+                  <caret line="4" selection-start-line="4" selection-end-line="4" />
                   <folding>
-                    <element signature="e#0#26#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="simple_plot.py" pinned="false" current-in-tab="false">
-            <entry file="file:///tmp/mozilla_jordan970/simple_plot.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state>
-                  <folding>
-                    <element signature="e#0#31#0" expanded="true" />
+                    <element signature="e#0#29#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -134,6 +117,7 @@
       <find>get_reward</find>
       <find>self.test_instance</find>
       <find>===</find>
+      <find>get_best_action</find>
     </findStrings>
     <replaceStrings>
       <replace>|</replace>
@@ -151,15 +135,16 @@
         <option value="$PROJECT_DIR$/models/random.py" />
         <option value="$PROJECT_DIR$/models/cnn_dependents.py" />
         <option value="$PROJECT_DIR$/TestRunner/runner.py" />
-        <option value="$PROJECT_DIR$/models/models.py" />
-        <option value="$PROJECT_DIR$/runner/runner.py" />
-        <option value="$PROJECT_DIR$/models/base.py" />
-        <option value="$PROJECT_DIR$/tests/base.py" />
         <option value="$PROJECT_DIR$/data/analyzer.py" />
         <option value="$PROJECT_DIR$/tests/doom.py" />
         <option value="$PROJECT_DIR$/tools/save_file.py" />
-        <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/tools/analysis.py" />
+        <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/tests/base.py" />
+        <option value="$PROJECT_DIR$/runner/runner.py" />
+        <option value="$PROJECT_DIR$/models/base.py" />
+        <option value="$PROJECT_DIR$/models/models.py" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -173,10 +158,9 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-1" />
-    <option name="y" value="-11" />
-    <option name="width" value="1922" />
-    <option name="height" value="1092" />
+    <option name="y" value="-4" />
+    <option name="width" value="1920" />
+    <option name="height" value="1084" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
@@ -186,89 +170,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="Evaluating Tests" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Evaluating Tests" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Evaluating Tests" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Evaluating Tests" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Evaluating Tests" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Evaluating Tests" type="462c0819:PsiDirectoryNode" />
-              <item name="runner" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Evaluating Tests" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Evaluating Tests" type="462c0819:PsiDirectoryNode" />
-              <item name="saves" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Evaluating Tests" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Evaluating Tests" type="462c0819:PsiDirectoryNode" />
-              <item name="saves" type="462c0819:PsiDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Evaluating Tests" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Evaluating Tests" type="462c0819:PsiDirectoryNode" />
-              <item name="tests" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Evaluating Tests" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Evaluating Tests" type="462c0819:PsiDirectoryNode" />
-              <item name="tools" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Evaluating Tests" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Evaluating Tests" type="462c0819:PsiDirectoryNode" />
-              <item name="venv" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Evaluating Tests" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Evaluating Tests" type="462c0819:PsiDirectoryNode" />
-              <item name="venv" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Evaluating Tests" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Evaluating Tests" type="462c0819:PsiDirectoryNode" />
-              <item name="venv" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-              <item name="python3.5" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Evaluating Tests" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Evaluating Tests" type="462c0819:PsiDirectoryNode" />
-              <item name="venv" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-              <item name="python3.5" type="462c0819:PsiDirectoryNode" />
-              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Evaluating Tests" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-            </path>
-            <path>
-              <item name="Evaluating Tests" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.5 (Evaluating Tests) &gt;" type="70bed36:NamedLibraryElementNode" />
-            </path>
-            <path>
-              <item name="Evaluating Tests" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.5 (Evaluating Tests) &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="1408354441" type="70582d5e:PySkeletonsNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
       <pane id="Scope">
         <subPane subId="Problems">
           <expand>
@@ -314,6 +215,42 @@
           <select />
         </subPane>
       </pane>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Evaluating Tests" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Evaluating Tests" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Evaluating Tests" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Evaluating Tests" type="462c0819:PsiDirectoryNode" />
+              <item name="models" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Evaluating Tests" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Evaluating Tests" type="462c0819:PsiDirectoryNode" />
+              <item name="runner" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Evaluating Tests" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Evaluating Tests" type="462c0819:PsiDirectoryNode" />
+              <item name="saves" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Evaluating Tests" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Evaluating Tests" type="462c0819:PsiDirectoryNode" />
+              <item name="tests" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Evaluating Tests" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Evaluating Tests" type="462c0819:PsiDirectoryNode" />
+              <item name="tools" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -354,8 +291,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="-11" width="1922" height="1092" extended-state="6" />
-    <editor active="true" />
+    <frame x="0" y="-4" width="1920" height="1084" extended-state="6" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5005208" side_tool="true" weight="0.32889345" />
@@ -386,27 +322,12 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/tests/doom.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="31" column="13" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="3" column="16" selection-start-line="3" selection-start-column="16" selection-end-line="3" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/models/base.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
@@ -453,7 +374,7 @@
         <state relative-caret-position="30">
           <caret line="3" column="16" selection-start-line="3" selection-start-column="16" selection-end-line="3" selection-end-column="16" />
           <folding>
-            <element signature="e#0#26#0" expanded="true" />
+            <element signature="e#0#29#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -504,7 +425,7 @@
         <state relative-caret-position="30">
           <caret line="3" column="16" selection-start-line="3" selection-start-column="16" selection-end-line="3" selection-end-column="16" />
           <folding>
-            <element signature="e#0#26#0" expanded="true" />
+            <element signature="e#0#29#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -538,7 +459,7 @@
         <state relative-caret-position="30">
           <caret line="3" column="16" selection-start-line="3" selection-start-column="16" selection-end-line="3" selection-end-column="16" />
           <folding>
-            <element signature="e#0#26#0" expanded="true" />
+            <element signature="e#0#29#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -608,13 +529,6 @@
     <entry file="file://$PROJECT_DIR$/models/random.py" />
     <entry file="file://$PROJECT_DIR$/weights/0004_f8_e2000.dump" />
     <entry file="file://$PROJECT_DIR$/weights/0001_f8_e2000.dump" />
-    <entry file="file://$PROJECT_DIR$/models/cnn_dependents.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="32" selection-start-line="32" selection-end-line="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/lib/python3.5/types.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="203">
@@ -636,30 +550,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/runner/runner.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="33" column="45" selection-start-line="33" selection-start-column="45" selection-end-line="33" selection-end-column="45" />
-          <folding>
-            <element signature="e#0#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///tmp/mozilla_jordan970/subplot_demo.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="7" column="2" selection-start-line="7" selection-start-column="2" selection-end-line="7" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="52" column="23" selection-start-line="52" selection-start-column="23" selection-end-line="52" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -683,16 +577,6 @@
         <state relative-caret-position="-11727" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="18" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/base.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file:///tmp/mozilla_jordan970/simple_plot.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -702,51 +586,93 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/saves/graphs/0005_Intelligence.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/saves/graphs/0005_Intelligence.png" />
     <entry file="file://$USER_HOME$/.PyCharm2018.1/system/python_stubs/1408354441/unicodedata.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/venv/lib/python3.5/site-packages/slugify.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
-          <folding>
-            <element signature="e#102#111#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="25" column="70" selection-start-line="25" selection-start-column="70" selection-end-line="25" selection-end-column="70" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/saves/graphs/0005_artificial-intelligence.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/venv/lib/python3.5/site-packages/slugify.py" />
+    <entry file="file://$PROJECT_DIR$/saves/graphs/0005_artificial-intelligence.png" />
     <entry file="file://$PROJECT_DIR$/saves/graphs/0005_intelligence_of_a_system.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/tools/save_file.py">
+    <entry file="file://$PROJECT_DIR$/Classes.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="25" column="12" selection-start-line="25" selection-start-column="12" selection-end-line="25" selection-end-column="12" />
+        <state>
+          <caret column="60" selection-start-column="60" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/cnn_dependents.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="32" selection-start-line="32" selection-end-line="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/runner/runner.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="555">
+          <caret line="37" column="52" selection-start-line="37" selection-start-column="52" selection-end-line="37" selection-end-column="52" />
+          <folding>
+            <element signature="e#0#33#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tools/analysis.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
-          <caret line="59" selection-start-line="59" selection-end-line="59" />
+        <state relative-caret-position="780">
+          <caret line="52" column="92" lean-forward="true" selection-start-line="52" selection-start-column="92" selection-end-line="52" selection-end-column="92" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret lean-forward="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tools/save_file.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="8" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="28" column="86" selection-start-line="28" selection-start-column="86" selection-end-line="28" selection-end-column="86" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="1" selection-start-column="1" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="490">
+          <caret line="146" lean-forward="true" selection-start-line="146" selection-end-line="146" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>

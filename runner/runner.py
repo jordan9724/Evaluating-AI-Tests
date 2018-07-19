@@ -28,11 +28,11 @@ class TestRunner:
             self.model.set_actions(test.get_actions())
 
             # Loops through each training set
-            for data, get_reward_func, epoch, max_epoch in test.train():
+            for data, epoch, max_epoch in test.train():
 
                 # Model chooses action based off tools
                 model_action = self.model.get_action(True, data, epoch, max_epoch)
 
                 # Model gets reward from chosen action
-                reward, is_terminal = get_reward_func(model_action)
-                self.model.give_reward(reward, is_terminal)
+                data, reward, is_terminal = test.get_reward(model_action)
+                self.model.receive_reward(True, data, reward, is_terminal)

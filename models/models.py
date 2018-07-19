@@ -1,8 +1,9 @@
-import os
 import pickle
-import random
+import skimage.transform
 import numpy as np
 import theano
+
+from random import random, randint
 
 from lasagne.init import HeUniform, Constant
 from lasagne.layers import get_all_param_values, set_all_param_values, InputLayer, Conv2DLayer, DenseLayer, get_output, \
@@ -16,18 +17,19 @@ from models.cnn_dependents import ReplayMemory
 from theano import tensor
 
 from tests.base import TestBase
+from tools.save_file import SaveInfo
 
 
 class FirstAction(ModelBase):
 
-    def get_action(self, data):
-        return self.test_instance.actions[0]
+    def get_action(self, **kwargs):
+        return self.actions[0]
 
 
 class RandAction(ModelBase):
 
-    def get_action(self, data):
-        return self.test_instance.actions[random.randint(0, len(self.test_instance.actions) - 1)]
+    def get_action(self, **kwargs):
+        return self.actions[random.randint(0, len(self.actions) - 1)]
 
 
 class CNN(ModelBase):
@@ -37,43 +39,90 @@ class CNN(ModelBase):
     replay_memory_size = 10000
     resolution = (30, 45)
     epochs = 5
-
-    @property
-    def model_savefile(self):
-        run_nums = [int(name.split('_')[0]) for name in os.listdir("../weights")]
-        if len(run_nums) == 0:
-            _curr_run = 0
-        else:
-            _curr_run = max(run_nums) + 1
-        curr_run = "{:0>4s}".format(str(_curr_run))
-
-        return "../nets/{}_cnn_f{}_e{}.dump".format(
-            curr_run,
-            self.num_filters,
-            self.epochs
-        )
+    data_before_action = None
+    curr_action = None
 
     def __init__(self, test_instance: TestBase, num_filters=8):
         print('Initializing the CNN...')
         super().__init__(test_instance)
         self.num_filters = num_filters
+        self._save_info = SaveInfo('weights', extra_info='cnn_f{}.dump'.format(self.num_filters))
 
         # Create replay memory which will store the transitions
         self.memory = ReplayMemory(capacity=self.replay_memory_size, resolution=self.resolution)
 
-        self.net, self.learn, self.get_q_values, self.get_best_action = self.create_network(len(self.test_instance.actions))
+        self.net, self.learn, self.get_q_values, self.get_best_action = self.create_network(len(self.actions))
         print('Done.')
 
+    def get_action(self, is_training: bool, data, epoch=None, max_epoch=None):
+        self.data_before_action = self.preprocess(data)
+        if is_training:
+            exploration_rate = self.get_exploration_rate(epoch, max_epoch)
+
+            if random() <= exploration_rate:
+                self.curr_action = randint(0, len(self.actions) - 1)
+                return self.curr_action
+
+        self.curr_action = self.get_best_action(self.data_before_action)
+        return self.curr_action
+
+    def receive_reward(self, is_training: bool, data, reward: float, is_terminal: bool):
+        if is_training:
+            data_after_action = None
+            if not is_terminal and data is not None:
+                data_after_action = self.preprocess(data)
+
+            self.memory.add_transition(self.data_before_action, self.curr_action, data_after_action, is_terminal, reward)
+            self.learn_from_memory()
+
+    @staticmethod
+    def get_exploration_rate(epoch=None, max_epoch=None):
+        exploration_rate = 0.85
+        if epoch is not None and max_epoch is not None:
+            # Changes exploration rate over time
+            start_eps = 1.0
+            end_eps = 0.1
+            const_eps_epochs = 0.1 * max_epoch  # 10% of learning time
+            eps_decay_epochs = 0.6 * max_epoch  # 60% of learning time
+
+            if epoch < const_eps_epochs:
+                exploration_rate = start_eps
+            elif epoch < eps_decay_epochs:
+                # Linear decay
+                exploration_rate = start_eps - (epoch - const_eps_epochs) / \
+                       (eps_decay_epochs - const_eps_epochs) * (start_eps - end_eps)
+            else:
+                exploration_rate = end_eps
+
+        return exploration_rate
+
+    def preprocess(self, data):
+        data = skimage.transform.resize(data, self.resolution)
+        data = data.astype(np.float32)
+        return data
+
+    def learn_from_memory(self):
+        """ Learns from a single transition (making use of replay memory).
+        s2 is ignored if s2_isterminal """
+
+        # Get a random minibatch from the replay memory and learns from it.
+        if self.memory.size > self.batch_size:
+            s1, a, s2, isterminal, r = self.memory.get_sample(self.batch_size)
+
+            q2 = np.max(self.get_q_values(s2), axis=1)
+            # the value of q2 is ignored in learn if s2 is terminal
+            self.learn(s1, q2, a, r, isterminal)
+
     def save_net(self):
-        print("Saving the network weights to:", self.model_savefile)
-        pickle.dump(get_all_param_values(self.net), open(self.model_savefile, "wb"))
+        print("Saving the network weights to:", self._save_info.get_file_name())
+        pickle.dump(get_all_param_values(self.net), open(self._save_info.get_file_name(), "wb"))
 
     def load_net(self):
-        if not self.model_savefile:
+        if not self._save_info.get_file_name():
             raise Exception("No save file specified")
 
-        print("Loading the network weights from:", self.model_savefile)
-        params = pickle.load(open(self.model_savefile, "rb"))
+        print("Loading the network weights from:", self._save_info.get_file_name())
+        params = pickle.load(open(self._save_info.get_file_name(), "rb"))
         set_all_param_values(self.net, params)
 
     def create_network(self, available_actions_count):
@@ -126,63 +175,5 @@ class CNN(ModelBase):
 
         # Returns Theano objects for the net and functions.
         return dqn, function_learn, function_get_q_values, simple_get_best_action
-
-    def learn_from_memory(self):
-        """ Learns from a single transition (making use of replay memory).
-        s2 is ignored if s2_isterminal """
-
-        # Get a random minibatch from the replay memory and learns from it.
-        if self.memory.size > self.batch_size:
-            s1, a, s2, isterminal, r = self.memory.get_sample(self.batch_size)
-
-            q2 = np.max(self.get_q_values(s2), axis=1)
-            # the value of q2 is ignored in learn if s2 is terminal
-            self.learn(s1, q2, a, r, isterminal)
-
-    def perform_learning_step(self, epoch):
-        """ Makes an action according to eps-greedy policy, observes the result
-        (next state, reward) and learns from the transition"""
-
-        def exploration_rate(_epoch):
-            """# Define exploration rate change over time"""
-            start_eps = 1.0
-            end_eps = 0.1
-            const_eps_epochs = 0.1 * self.epochs  # 10% of learning time
-            eps_decay_epochs = 0.6 * self.epochs  # 60% of learning time
-
-            if _epoch < const_eps_epochs:
-                return start_eps
-            elif _epoch < eps_decay_epochs:
-                # Linear decay
-                return start_eps - (_epoch - const_eps_epochs) / \
-                                   (eps_decay_epochs - const_eps_epochs) * (start_eps - end_eps)
-            else:
-                return end_eps
-
-        s1 = self.test_instance.preprocess(self.resolution)
-
-        # With probability eps make a random action.
-        eps = exploration_rate(epoch)
-        if random.random() <= eps:
-            a = random.randint(0, len(self.test_instance.actions) - 1)
-        else:
-            # Choose the best action according to the network.
-            a = self.get_best_action(s1)
-        reward = self.test_instance.get_reward(a)
-
-        s2 = self.test_instance.preprocess(self.resolution) if not self.test_instance.isterminal else None
-
-        # Remember the transition that was just experienced.
-        self.memory.add_transition(s1, a, s2, self.test_instance.isterminal, reward)
-
-        self.learn_from_memory()
-
-    def train(self, learning_steps_per_epoch, test_episodes_per_epoch):
-        print('{:=^40s}'.format(' Starting Training! '))
-
-        self.test_instance.initialize_training()
-
-        for epoch in range(self.epochs):
-            print('{:=^40s}'.format(' Starting Epoch {} '.format(epoch)))
 
 
