@@ -1,7 +1,7 @@
 import os
 
 
-class SaverInfo:
+class SaveInfo:
     save_type = None
     extra_info = ''
     _save_num = None
@@ -14,7 +14,7 @@ class SaverInfo:
             assert isinstance(save_num, int) and 0 <= save_num <= 9999, "`save_num` must be from 0 ~ 9999"
             self._save_num = save_num
         else:
-            run_nums = [int(name.split('_')[0]) for name in os.listdir("../{}".format(save_type))]
+            run_nums = [int(name.split('_')[0]) for name in os.listdir(self._get_dir())]
             self._save_num = 0 if len(run_nums) == 0 else max(run_nums) + 1
             assert 0 <= self._save_num <= 9999, "Hmm, this is weird, but it seems like the last file saved to " \
                                                 "the {} folder began with 9999 (quit doing so much work!)".format(save_type)
@@ -23,9 +23,12 @@ class SaverInfo:
     def save_num(self):
         return self._save_num
 
+    def _get_dir(self):
+        return os.path.join(os.path.dirname(__file__), '../saves/{}'.format(self.save_type))
+
     def get_file_name(self):
         save_num_as_str = "{:0>4s}".format(str(self._save_num))
         extra_info = self.extra_info
         if extra_info:
             extra_info = '_{}'.format(extra_info)
-        return "../{}/{}{}".format(self.save_type, save_num_as_str, extra_info)
+        return "{}/{}{}".format(self._get_dir(), save_num_as_str, extra_info)
