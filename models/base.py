@@ -1,17 +1,17 @@
 class ModelBase:
-    actions = None
+    num_actions = 0
 
-    def set_actions(self, actions: iter):
+    def set_num_actions(self, actions: iter):
         """
         Available actions for the current scenario
 
         :param actions:
         """
-        self.actions = actions
+        self.num_actions = actions
 
     def get_action(self, is_training: bool, data, epoch=None, max_epoch=None):
         """
-        Gives back an action with assistance of the given tools
+        Gives back an action with assistance of the given data
 
         :param is_training: True when the system should be learning
         :param data: Used to determine an action

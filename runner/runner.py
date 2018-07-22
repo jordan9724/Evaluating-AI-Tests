@@ -8,7 +8,7 @@ TESTS = (
 
 def run_default():
     for test in TESTS:
-        yield test
+        yield test()
 
 
 class TestRunner:
@@ -28,11 +28,11 @@ class TestRunner:
             self.model.set_actions(test.get_actions())
 
             # Loops through each training set
-            for data, epoch, max_epoch in test.train():
+            for epoch, train_num in test.train():
 
-                # Model chooses action based off tools
-                model_action = self.model.get_action(True, data, epoch, max_epoch)
+                # Model chooses action based off data
+                model_action = self.model.get_action(True, test.get_data(), epoch, test.epochs)
 
                 # Model gets reward from chosen action
-                data, reward, is_terminal = test.get_reward(model_action)
-                self.model.receive_reward(True, data, reward, is_terminal)
+                reward = test.perform_action_and_get_reward(model_action)
+                self.model.receive_reward(True, test.get_data(), reward, test.is_terminal)

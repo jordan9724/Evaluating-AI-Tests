@@ -1,4 +1,4 @@
 from models.models import CNN
-from tests.doom import DoomBasic
+from runner.runner import TestRunner
 
-CNN(DoomBasic())
+TestRunner(CNN())

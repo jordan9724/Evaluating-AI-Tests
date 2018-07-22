@@ -1,7 +1,4 @@
-import numpy as np
 import itertools as it
-import skimage.color
-import skimage.transform
 
 from tests.base import TestBase
 from vizdoom.vizdoom import DoomGame, Mode, ScreenFormat, ScreenResolution
@@ -18,39 +15,38 @@ class DoomBase(TestBase):
         print('Getting Actions...')
         self.game = DoomGame()
         self.game.load_config(self.config_file_path)
-        self.actions = [list(act) for act in it.product([0, 1], repeat=self.game.get_available_buttons_size())]
+        self._actions = [list(act) for act in it.product([0, 1], repeat=self.game.get_available_buttons_size())]
         self.game.close()
         print('Done.')
 
-    def train(self):
+    @property
+    def is_terminal(self):
+        return self.game.is_episode_finished()
 
-        for epoch in range(self.epochs):
-            for train_num in range(self.training_per_epoch):
-                pass
+    def get_actions(self):
+        return self._actions
 
-    # def preprocess(self, res):
-    #     img = self.game.get_state().screen_buffer
-    #     img = skimage.transform.resize(img, res)
-    #     img = img.astype(np.float32)
-    #     return img
-    #
-    # def get_reward(self, action):
-    #     return self.game.make_action(self.actions[action], self.frame_repeat)
-    #
-    # @property
-    # def is_terminal(self):
-    #     return self.game.is_episode_finished()
-    #
-    # def initialize_training(self):
-    #     print('Initializing doom...')
-    #     game = DoomGame()
-    #     game.load_config(self.config_file_path)
-    #     game.set_window_visible(False)
-    #     game.set_mode(Mode.PLAYER)
-    #     game.set_screen_format(ScreenFormat.GRAY8)
-    #     game.set_screen_resolution(ScreenResolution.RES_640X480)
-    #     game.init()
-    #     print('Done.')
+    def get_data(self):
+        return self.game.get_state().screen_buffer
+
+    def perform_action_and_get_reward(self, action):
+        reward = self.game.make_action(self._actions[action], self.frame_repeat)
+        return reward
+
+    def run_results(self):
+        if self.game.is_episode_finished():
+            score = self.game.get_total_reward()
+
+    def initialize_training(self):
+        print('Initializing doom...')
+        self.game = DoomGame()
+        self.game.load_config(self.config_file_path)
+        self.game.set_window_visible(False)
+        self.game.set_mode(Mode.PLAYER)
+        self.game.set_screen_format(ScreenFormat.GRAY8)
+        self.game.set_screen_resolution(ScreenResolution.RES_640X480)
+        self.game.init()
+        print('Done.')
 
 
 class DoomBasic(DoomBase):
