@@ -1,33 +1,38 @@
-class ModelBase:
-    num_actions = 0
+from runner.runner import TestInfo
 
-    def set_num_actions(self, actions: iter):
+
+class ModelBase:
+    test_info = None
+
+    def set_test_info(self, test_info: TestInfo):
         """
         Available actions for the current scenario
 
-        :param actions:
+        :param test_info: Contains information about the current state of the test
         """
-        self.num_actions = actions
+        self.test_info = test_info
 
-    def get_action(self, is_training: bool, data, epoch=None, max_epoch=None):
+    def get_action(self):
         """
         Gives back an action with assistance of the given data
-
-        :param is_training: True when the system should be learning
-        :param data: Used to determine an action
-        :param epoch: Current epoch
-        :param max_epoch: Max number of epochs
-        :return: The chosen action
+        :return: The chosen action index
         """
         raise NotImplemented
 
-    def receive_reward(self, is_training: bool, data, reward: float, is_terminal: bool):
+    def receive_reward(self):
         """
         After the action is received, the model will be given a reward based off of its action
+        """
+        pass
 
-        :param is_training: True when the system should be learning
-        :param data: Data of the state after learning (None if test is not sequential)
-        :param reward: Reward for its action
-        :param is_terminal: If the current simulation is finished (can only be false for tests with continuous simulations)
+    def save_model(self):
+        """
+        Called to suggest the model to save
+        """
+        pass
+
+    def load_model(self):
+        """
+        Restores a model
         """
         pass

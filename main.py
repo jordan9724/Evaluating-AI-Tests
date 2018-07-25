@@ -1,4 +1,9 @@
-from models.models import CNN
+from models.cnn import CNN
 from runner.runner import TestRunner
+from tools.analysis import DataAnalyzer
+from tools.setup import setup_tensorflow
 
-TestRunner(CNN())
+# setup_tensorflow()
+#
+# TestRunner(CNN()).start()
+DataAnalyzer(data_id=8)

@@ -3,6 +3,9 @@ import itertools as it
 from tests.base import TestBase
 from vizdoom.vizdoom import DoomGame, Mode, ScreenFormat, ScreenResolution
 
+from tools.analysis import DataAnalyzer
+from tools.save_file import SaveInfo
+
 
 class DoomBase(TestBase):
     epochs = 20
@@ -10,7 +13,9 @@ class DoomBase(TestBase):
     frame_repeat = 12
 
     def __init__(self, scenario):
-        self.config_file_path = "../scenarios/{}.cfg".format(scenario)
+        save_info = SaveInfo('scenarios', save_num=False, extra_info='{}.cfg'.format(scenario))
+        self.config_file_path = save_info.get_file_name()
+        self.analyzer = DataAnalyzer(self.epochs * self.training_per_epoch, ["Epoch", "Train", "Score", "Finished"])
 
         print('Getting Actions...')
         self.game = DoomGame()
@@ -27,15 +32,22 @@ class DoomBase(TestBase):
         return self._actions
 
     def get_data(self):
-        return self.game.get_state().screen_buffer
+        return self.game.get_state().screen_buffer.copy()
 
-    def perform_action_and_get_reward(self, action):
-        reward = self.game.make_action(self._actions[action], self.frame_repeat)
+    def perform_action_and_get_reward(self, action_idx):
+        reward = self.game.make_action(self._actions[action_idx], self.frame_repeat)
+        self.analyzer.set_next_values([self.test_info.curr_epoch, self.test_info.curr_train, reward, self.test_info.is_terminal])
         return reward
 
-    def run_results(self):
-        if self.game.is_episode_finished():
-            score = self.game.get_total_reward()
+    # def after_epoch(self):
+    #     print(np.average(self.scores[self.test_info.curr_epoch]))
+
+    def finish(self):
+        self.analyzer.display_error_bar_over_many("Epoch", "Score", "Epoch vs Score", x_skip=1, y_skip=10)
+        self.analyzer.display_sum_y_vals("Epoch", "Finished", "Epoch vs Finished", x_skip=1, y_skip=10)
+
+    def reset_after_terminal(self):
+        self.game.new_episode()
 
     def initialize_training(self):
         print('Initializing doom...')
@@ -53,3 +65,9 @@ class DoomBasic(DoomBase):
 
     def __init__(self):
         super().__init__('basic')
+
+
+class DoomPredictPosition(DoomBase):
+
+    def __init__(self):
+        super().__init__('predict_position')

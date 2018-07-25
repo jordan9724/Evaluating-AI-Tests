@@ -1,8 +1,10 @@
+from tqdm import trange
 
 
 class TestBase:
     epochs = None
     training_per_epoch = None
+    test_info = None
 
     def get_actions(self):
         raise NotImplemented
@@ -10,22 +12,32 @@ class TestBase:
     def get_data(self):
         raise NotImplemented
 
-    def perform_action_and_get_reward(self, action):
+    def perform_action_and_get_reward(self, action_idx):
         raise NotImplemented
 
     def initialize_training(self):
         pass
 
-    def run_results(self):
+    def set_test_info(self, test_info):
+        self.test_info = test_info
+
+    def after_epoch(self):
         pass
 
     def train(self):
         self.initialize_training()
-        for epoch in range(self.epochs):
-            for train_num in range(self.training_per_epoch):
+        for epoch in trange(self.epochs):
+            print('Epoch', epoch)
+            for train_num in trange(self.training_per_epoch):
                 yield epoch + 1, train_num
-                self.run_results()
+            print('\n')
+            print('\n')
 
+    def reset_after_terminal(self):
+        pass
+
+    def finish(self):
+        pass
 
     @property
     def is_terminal(self):
