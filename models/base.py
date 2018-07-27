@@ -3,6 +3,12 @@ from runner.runner import TestInfo
 
 class ModelBase:
     test_info = None
+    handicap = None
+
+    def set_handicap(self, handicap: float):
+        # 1 = fully handicapped, 0 = fully capable
+        assert 0 <= handicap <= 1, "Handicap must be between 0 and 1"
+        self.handicap = handicap
 
     def set_test_info(self, test_info: TestInfo):
         """

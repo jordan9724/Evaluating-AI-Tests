@@ -3,7 +3,6 @@ from runner.runner import TestRunner
 from tools.analysis import DataAnalyzer
 from tools.setup import setup_tensorflow
 
-# setup_tensorflow()
-#
-# TestRunner(CNN()).start()
-DataAnalyzer(data_id=8)
+setup_tensorflow()
+
+TestRunner(CNN).start()

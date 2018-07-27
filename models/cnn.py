@@ -139,17 +139,20 @@ class CNN(ModelBase):
         return data
 
     def create_network(self):
+        # Set num_outputs based off of handicap - num_outputs in [1, 2, 4, 8, 16, 32, 64, 128]
+        num_outputs = 2 ** int((1 - self.handicap) * 8)
+
         # Create the input variables
         s1_ = tf.placeholder(tf.float32, [None] + list(self.resolution) + [1], name="State")
         a_ = tf.placeholder(tf.int32, [None], name="Action")
         target_q_ = tf.placeholder(tf.float32, [None, self.test_info.num_actions], name="TargetQ")
 
         # Add 2 convolutional layers with ReLu activation
-        conv1 = tf.contrib.layers.convolution2d(s1_, num_outputs=8, kernel_size=[6, 6], stride=[3, 3],
+        conv1 = tf.contrib.layers.convolution2d(s1_, num_outputs=num_outputs, kernel_size=[6, 6], stride=[3, 3],
                                                 activation_fn=tf.nn.relu,
                                                 weights_initializer=tf.contrib.layers.xavier_initializer_conv2d(),
                                                 biases_initializer=tf.constant_initializer(0.1))
-        conv2 = tf.contrib.layers.convolution2d(conv1, num_outputs=8, kernel_size=[3, 3], stride=[2, 2],
+        conv2 = tf.contrib.layers.convolution2d(conv1, num_outputs=num_outputs, kernel_size=[3, 3], stride=[2, 2],
                                                 activation_fn=tf.nn.relu,
                                                 weights_initializer=tf.contrib.layers.xavier_initializer_conv2d(),
                                                 biases_initializer=tf.constant_initializer(0.1))

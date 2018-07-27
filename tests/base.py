@@ -1,9 +1,13 @@
 from tqdm import trange
 
 
+EPOCHS = 20
+TRAIN_PER_EPOCH = 2000
+
+
 class TestBase:
-    epochs = None
-    training_per_epoch = None
+    epochs = EPOCHS
+    training_per_epoch = TRAIN_PER_EPOCH
     test_info = None
 
     def get_actions(self):

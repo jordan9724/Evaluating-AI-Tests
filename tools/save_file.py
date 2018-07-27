@@ -10,18 +10,20 @@ class SaveInfo:
         self.save_type = save_type
         self.extra_info = extra_info
 
-        if save_num not in (None, False):
-            assert isinstance(save_num, int) and 0 <= save_num <= 9999, "`save_num` must be from 0 ~ 9999"
+        if type(save_num) is int:
+            assert 0 <= save_num <= 9999, "`save_num` must be from 0 ~ 9999"
             self._save_num = save_num
 
             # Gets the matching file name based off of `save_num`
-            save_num_as_str = self.save_num_to_str()
-            files_with_num = [i for i in os.listdir(self._get_dir()) if i.startswith(save_num_as_str)]
-            assert len(files_with_num) == 1, "Exactly one file should begin with '{}' if trying to load a save file".format(save_num_as_str)
-            self._save_name = files_with_num[0]
-            file_pieces = self._save_name.split('_', 1)
-            if len(file_pieces) == 2:
-                self.extra_info = file_pieces[1]
+            if extra_info == '':
+                save_num_as_str = self.save_num_to_str()
+                files_with_num = [i for i in os.listdir(self._get_dir()) if i.startswith(save_num_as_str)]
+                assert len(files_with_num) == 1, "Exactly one file should begin with '{}' if trying to load a save file".format(save_num_as_str)
+                file_name = files_with_num[0]
+                file_pieces = file_name.split('_', 1)
+                self._save_name = self._save_name = "{}/{}".format(self._get_dir(), file_name)
+                if len(file_pieces) == 2:
+                    self.extra_info = file_pieces[1]
         elif save_num is None:
             run_nums = [int(name.split('_')[0]) for name in os.listdir(self._get_dir())]
             self._save_num = 0 if len(run_nums) == 0 else max(run_nums) + 1
