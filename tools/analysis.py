@@ -72,8 +72,14 @@ class DataAnalyzer:
 
     def show_graph(self, title):
         plt.grid(True)
-        plt.savefig(SaveInfo('graphs', self._saver_info.save_num,
-                             '{}.png'.format(slugify(title).replace('-', '_'))).get_file_name())
+        plt.savefig(
+            SaveInfo(
+                'graphs', self._saver_info.save_num,
+                '{}.png'.format(slugify(title).replace('-', '_'))
+            ).get_file_name(),
+            figsize=(16, 9),
+            dpi=300
+        )
         self.save()
         plt.show()
 
@@ -128,57 +134,106 @@ class DataAnalyzer:
         plt.ylabel('STD')
         self.show_graph(title)
 
-    def display_epoch_handicap(self, min_val, max_val, max_finished):
-        epochs = self._df.loc[:, 'Epoch'].unique()
+    def display_intelligence_score(self):
+
+        title = 'Handicap vs Intelligence Score'
+        plt.title(title)
+        tests = self._df.loc[:, 'Test'].unique()
         handicaps = self._df.loc[:, 'Handicap'].unique()
-        y_vals_score = {handicap: [] for handicap in handicaps}
-        y_vals_std = {handicap: [] for handicap in handicaps}
-        y_vals_fin = {handicap: [] for handicap in handicaps}
-        for epoch in epochs:
+        models = ['CNN', 'Replay CNN']
+
+        scores = {
+            model: {
+                test: []
+                for test in tests
+            }
+            for model in models
+        }
+        for model in models:
+            for test in tests:
+                scores = []
+                for handicap in handicaps:
+                    scores.append(self._df.loc[self._df['Model'] == model].loc[self._df['Test'] == test].loc[self._df['Handicap'] == handicap].loc[:, 'Score'].mean())
+                    # print('Model', model, 'Test', test, 'Handicap', handicap, 'Score', score)
+                plt.plot(handicaps, scores, label='{} | {}'.format(model, test))
+
+        # for model in models:
+        #     for test in tests
+
+        plt.legend()
+
+        # X Axis
+        plt.xticks([h for h in handicaps])
+        plt.xlabel('Handicap')
+        # Y Axis
+        num_y_ticks = 10
+        r = 0.05
+        plt.yticks([(r / 2) - i * r / num_y_ticks for i in range(num_y_ticks + 1)])
+        plt.ylabel('Intelligence Score')
+
+        self.show_graph(title)
+
+    def display_epoch_handicap(self, max_finished):
+        tests = self._df.loc[:, 'Test'].unique()
+        for test in tests:
+            test_df = self._df.loc[self._df['Test'] == test]
+            epochs = test_df.loc[:, 'Epoch'].unique()
+            handicaps = test_df.loc[:, 'Handicap'].unique()
+            min_val = test_df.loc[:, 'Min'].mean()
+            max_val = test_df.loc[:, 'Max'].mean()
+            y_vals_score = {handicap: [] for handicap in handicaps}
+            y_vals_std = {handicap: [] for handicap in handicaps}
+            y_vals_fin = {handicap: [] for handicap in handicaps}
+            for epoch in epochs:
+                for handicap in handicaps:
+                    nums = test_df.loc[test_df['Epoch'] == epoch].loc[test_df['Handicap'] == handicap]
+                    y_vals_score[handicap].append((nums['Score'].sum() - min_val) / (max_val - min_val))
+                    y_vals_std[handicap].append(nums['STD'].sum() / (max_val - min_val))
+                    y_vals_fin[handicap].append(nums['Finished'].sum() / max_finished)
+
+            sub_title = ''
+            if self.graph_sub_title:
+                sub_title = '\nModel: {} | Test: {}'.format(self.graph_sub_title, str(test))
+
+
+            # Display Epoch vs Score
             for handicap in handicaps:
-                nums = self._df.loc[self._df['Epoch'] == epoch].loc[self._df['Handicap'] == handicap]
-                y_vals_score[handicap].append((nums['Score'].sum() - min_val) / (max_val - min_val))
-                y_vals_std[handicap].append(nums['STD'].sum() / (max_val - min_val))
-                y_vals_fin[handicap].append(nums['Finished'].sum() / max_finished)
+                plt.plot(epochs, y_vals_score[handicap], label='Handicapped {}%'.format(handicap * 100))
+            plt.legend()
+            plt.xticks([i for i in epochs])
+            num_y_ticks = 10
+            plt.yticks([i / num_y_ticks for i in range(num_y_ticks + 1)])
+            title = 'Epoch vs Score{}'.format(sub_title)
+            plt.title(title)
+            plt.xlabel('Epoch')
+            plt.ylabel('Score')
+            self.show_graph(title)
 
-        # Display Epoch vs Score
-        for handicap in handicaps:
-            plt.plot(epochs, y_vals_score[handicap], label='Handicapped {}%'.format(handicap * 100))
-        plt.legend()
-        plt.xticks([i for i in epochs])
-        num_y_ticks = 10
-        plt.yticks([i / num_y_ticks for i in range(num_y_ticks + 1)])
-        title = 'Epoch vs Score'
-        plt.title('{}{}'.format(title, '\n{}'.format(self.graph_sub_title) if self.graph_sub_title is not None else ''))
-        plt.xlabel('Epoch')
-        plt.ylabel('Score')
-        self.show_graph(title)
+            # Display Epoch vs STD
+            for handicap in handicaps:
+                plt.plot(epochs, y_vals_std[handicap], label='Handicapped {}%'.format(handicap * 100))
+            plt.legend()
+            plt.xticks([i for i in epochs])
+            num_y_ticks = 10
+            plt.yticks([i / num_y_ticks for i in range(num_y_ticks + 1)])
+            title = 'Epoch vs Standard Deviation (STD){}'.format(sub_title)
+            plt.title(title)
+            plt.xlabel('Epoch')
+            plt.ylabel('STD')
+            self.show_graph(title)
 
-        # Display Epoch vs STD
-        for handicap in handicaps:
-            plt.plot(epochs, y_vals_std[handicap], label='Handicapped {}%'.format(handicap * 100))
-        plt.legend()
-        plt.xticks([i for i in epochs])
-        num_y_ticks = 10
-        plt.yticks([i / num_y_ticks for i in range(num_y_ticks + 1)])
-        title = 'Epoch vs Standard Deviation (STD)'
-        plt.title('{}{}'.format(title, '\n{}'.format(self.graph_sub_title) if self.graph_sub_title is not None else ''))
-        plt.xlabel('Epoch')
-        plt.ylabel('STD')
-        self.show_graph(title)
-
-        # Display Epoch vs Finished
-        for handicap in handicaps:
-            plt.plot(epochs, y_vals_fin[handicap], label='Handicapped {}%'.format(handicap * 100))
-        plt.legend()
-        plt.xticks([i for i in epochs])
-        num_y_ticks = 10
-        plt.yticks([i / num_y_ticks for i in range(num_y_ticks + 1)])
-        title = 'Epoch vs Finished Episodes'
-        plt.title('{}{}'.format(title, '\n{}'.format(self.graph_sub_title) if self.graph_sub_title is not None else ''))
-        plt.xlabel('Epoch')
-        plt.ylabel('Finished')
-        self.show_graph(title)
+            # Display Epoch vs Finished
+            for handicap in handicaps:
+                plt.plot(epochs, y_vals_fin[handicap], label='Handicapped {}%'.format(handicap * 100))
+            plt.legend()
+            plt.xticks([i for i in epochs])
+            num_y_ticks = 10
+            plt.yticks([i / num_y_ticks for i in range(num_y_ticks + 1)])
+            title = 'Epoch vs Finished Episodes{}'.format(sub_title)
+            plt.title(title)
+            plt.xlabel('Epoch')
+            plt.ylabel('Finished')
+            self.show_graph(title)
 
 
     # def display_graph(self, x_vals: iter, y_vals: iter, title: str, x_label=None, y_label=None, x_skip=None, y_skip=None):

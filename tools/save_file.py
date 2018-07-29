@@ -25,7 +25,7 @@ class SaveInfo:
                 if len(file_pieces) == 2:
                     self.extra_info = file_pieces[1]
         elif save_num is None:
-            run_nums = [int(name.split('_')[0]) for name in os.listdir(self._get_dir())]
+            run_nums = [int(name.split('_')[0]) for name in os.listdir(self._get_dir()) if 'checkpoint' not in name]
             self._save_num = 0 if len(run_nums) == 0 else max(run_nums) + 1
             assert 0 <= self._save_num <= 9999, "Hmm, this is weird, but it seems like the last file saved to " \
                                                 "the {} folder was at least 9999 (quit doing so much work!)".format(save_type)

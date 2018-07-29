@@ -31,8 +31,8 @@ class DoomBase(TestBase):
     def is_terminal(self):
         return self.game.is_episode_finished()
 
-    def get_actions(self):
-        return self._actions
+    def get_num_actions(self):
+        return len(self._actions)
 
     def get_data(self):
         return self.game.get_state().screen_buffer.copy()
@@ -70,9 +70,13 @@ class DoomBasic(DoomBase):
     def __init__(self, graph_sub_title=None):
         super().__init__('basic', graph_sub_title)
 
-    def finish(self):
-        min_score = -400
-        max_score = 100
+    @staticmethod
+    def to_str():
+        return 'Doom Basic'
+
+    @staticmethod
+    def get_min_max_score():
+        return -400, 100
         # self.analyzer.display_specific_epoch_vs_score(min_score, max_score)
         # self.analyzer.display_specific_epoch_vs_std(min_score, max_score)
 
@@ -82,8 +86,12 @@ class DoomPredictPosition(DoomBase):
     def __init__(self, graph_sub_title=None):
         super().__init__('predict_position', graph_sub_title)
 
-    def finish(self):
-        min_score = -0.3
-        max_score = 1
+    @staticmethod
+    def to_str():
+        return 'Doom Predict Position'
+
+    @staticmethod
+    def get_min_max_score():
+        return -0.3, 1
         # self.analyzer.display_specific_epoch_vs_score(min_score, max_score)
         # self.analyzer.display_specific_epoch_vs_std(min_score, max_score)

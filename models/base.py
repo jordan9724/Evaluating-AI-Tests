@@ -5,6 +5,10 @@ class ModelBase:
     test_info = None
     handicap = None
 
+    @staticmethod
+    def to_str():
+        raise NotImplemented
+
     def set_handicap(self, handicap: float):
         # 1 = fully handicapped, 0 = fully capable
         assert 0 <= handicap <= 1, "Handicap must be between 0 and 1"
